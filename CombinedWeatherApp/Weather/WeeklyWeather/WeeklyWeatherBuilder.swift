@@ -31,7 +31,7 @@ import SwiftUI
 enum WeeklyWeatherBuilder {
 	static func makeCurrentWeatherView(
 		withCity city: String,
-		weatherFetcher: WeatherFetchable
+		weatherFetcher: WeatherFetcher
 	) -> some View {
 		let viewModel = CurrentWeatherViewModel(
 			city: city,

@@ -33,11 +33,11 @@ class WeeklyWeatherViewModel: ObservableObject {
 	@Published var city: String = ""
 	@Published var dataSource: [DailyWeatherRowViewModel] = []
 	
-	let weatherFetcher: WeatherFetchable
+	let weatherFetcher: WeatherFetcher
 	private var disposables = Set<AnyCancellable>()
 	
 	init(
-		weatherFetcher: WeatherFetchable,
+		weatherFetcher: WeatherFetcher,
 		scheduler: DispatchQueue = DispatchQueue(label: "WeatherViewModel")
 	) {
 		self.weatherFetcher = weatherFetcher

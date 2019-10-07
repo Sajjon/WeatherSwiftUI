@@ -28,13 +28,16 @@
 
 import SwiftUI
 
-struct CurrentWeatherRow: View {
+struct CurrentWeatherRow {
 	private let viewModel: CurrentWeatherRowViewModel
 	
 	init(viewModel: CurrentWeatherRowViewModel) {
 		self.viewModel = viewModel
 	}
-	
+}
+
+// MARK: - View
+extension CurrentWeatherRow: View {
 	var body: some View {
 		VStack(alignment: .leading) {
 			MapView(coordinate: viewModel.coordinate)

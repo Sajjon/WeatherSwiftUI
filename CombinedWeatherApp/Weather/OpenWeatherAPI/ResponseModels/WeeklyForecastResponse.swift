@@ -26,37 +26,51 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct DailyWeatherRow {
-	private let viewModel: DailyWeatherRowViewModel
-	
-	init(viewModel: DailyWeatherRowViewModel) {
-		self.viewModel = viewModel
+struct WeeklyForecastResponse: Codable {
+	let list: [Item]
+}
+
+extension WeeklyForecastResponse {
+	struct Item: Codable {
+		let date: Date
+		let main: MainClass
+		let weather: [Weather]
 	}
 }
 
-// MARK: - View
-extension DailyWeatherRow: View {
-	var body: some View {
-		HStack {
-			VStack {
-				Text("\(viewModel.day)")
-				Text("\(viewModel.month)")
-			}
-			
-			VStack(alignment: .leading) {
-				Text("\(viewModel.title)")
-					.font(.body)
-				Text("\(viewModel.fullDescription)")
-					.font(.footnote)
-			}
-			.padding(.leading, 8)
-			
-			Spacer()
-			
-			Text("\(viewModel.temperature)°")
-				.font(.title)
+extension WeeklyForecastResponse.Item {
+	enum CodingKeys: String, CodingKey {
+		case date = "dt"
+		case main
+		case weather
+	}
+}
+
+extension WeeklyForecastResponse.Item {
+	struct MainClass: Codable {
+		let temp: Double
+	}
+	
+}
+
+extension WeeklyForecastResponse.Item {
+	struct Weather: Codable {
+		let main: MainEnum
+		let weatherDescription: String
+		
+		enum CodingKeys: String, CodingKey {
+			case main
+			case weatherDescription = "description"
 		}
+	}
+}
+
+extension WeeklyForecastResponse.Item.Weather {
+	enum MainEnum: String, Codable {
+		case clear = "Clear"
+		case clouds = "Clouds"
+		case rain = "Rain"
 	}
 }

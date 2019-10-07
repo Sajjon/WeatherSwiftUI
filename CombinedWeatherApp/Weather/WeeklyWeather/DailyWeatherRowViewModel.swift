@@ -32,20 +32,26 @@ import SwiftUI
 struct DailyWeatherRowViewModel: Identifiable {
 	private let item: WeeklyForecastResponse.Item
 	
+	init(item: WeeklyForecastResponse.Item) {
+		self.item = item
+	}
+}
+
+extension DailyWeatherRowViewModel {
 	var id: String {
-		return day + temperature + title
+		day + temperature + title
 	}
 	
 	var day: String {
-		return dayFormatter.string(from: item.date)
+		dayFormatter.string(from: item.date)
 	}
 	
 	var month: String {
-		return monthFormatter.string(from: item.date)
+		monthFormatter.string(from: item.date)
 	}
 	
 	var temperature: String {
-		return String(format: "%.1f", item.main.temp)
+		String(format: "%.1f", item.main.temp)
 	}
 	
 	var title: String {
@@ -57,20 +63,16 @@ struct DailyWeatherRowViewModel: Identifiable {
 		guard let description = item.weather.first?.weatherDescription else { return "" }
 		return description
 	}
-	
-	init(item: WeeklyForecastResponse.Item) {
-		self.item = item
-	}
 }
 
 // Used to hash on just the day in order to produce a single view model for each
 // day when there are multiple items per each day.
 extension DailyWeatherRowViewModel: Hashable {
-	static func == (lhs: DailyWeatherRowViewModel, rhs: DailyWeatherRowViewModel) -> Bool {
-		return lhs.day == rhs.day
+	static func == (lhs: Self, rhs: Self) -> Bool {
+		lhs.day == rhs.day
 	}
 	
 	func hash(into hasher: inout Hasher) {
-		hasher.combine(self.day)
+		hasher.combine(day)
 	}
 }

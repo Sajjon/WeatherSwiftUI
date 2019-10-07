@@ -33,14 +33,17 @@ class CurrentWeatherViewModel: ObservableObject {
 	@Published var dataSource: CurrentWeatherRowViewModel?
 	
 	let city: String
-	private let weatherFetcher: WeatherFetchable
+	private let weatherFetcher: WeatherFetcher
 	private var disposables = Set<AnyCancellable>()
 	
-	init(city: String, weatherFetcher: WeatherFetchable) {
+	init(city: String, weatherFetcher: WeatherFetcher) {
 		self.weatherFetcher = weatherFetcher
 		self.city = city
 	}
-	
+}
+
+// MARK: - Action
+extension CurrentWeatherViewModel {
 	func refresh() {
 		weatherFetcher
 			.currentWeatherForecast(forCity: city)

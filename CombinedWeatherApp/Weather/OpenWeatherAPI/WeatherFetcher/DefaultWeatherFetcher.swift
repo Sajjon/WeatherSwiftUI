@@ -29,16 +29,6 @@
 import Foundation
 import Combine
 
-protocol WeatherFetcher {
-	func weeklyWeatherForecast(
-		forCity city: String
-	) -> AnyPublisher<WeeklyForecastResponse, WeatherError>
-	
-	func currentWeatherForecast(
-		forCity city: String
-	) -> AnyPublisher<CurrentWeatherForecastResponse, WeatherError>
-}
-
 final class DefaultWeatherFetcher {
 	private let session: URLSession
 	
@@ -47,7 +37,7 @@ final class DefaultWeatherFetcher {
 	}
 }
 
-// MARK: - WeatherFetchable
+// MARK: - WeatherFetcher
 extension DefaultWeatherFetcher: WeatherFetcher {
 	func weeklyWeatherForecast(
 		forCity city: String

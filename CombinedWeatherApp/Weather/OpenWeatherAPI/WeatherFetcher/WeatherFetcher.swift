@@ -26,37 +26,16 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
+import Combine
 
-struct DailyWeatherRow {
-	private let viewModel: DailyWeatherRowViewModel
+protocol WeatherFetcher {
+	func weeklyWeatherForecast(
+		forCity city: String
+	) -> AnyPublisher<WeeklyForecastResponse, WeatherError>
 	
-	init(viewModel: DailyWeatherRowViewModel) {
-		self.viewModel = viewModel
-	}
+	func currentWeatherForecast(
+		forCity city: String
+	) -> AnyPublisher<CurrentWeatherForecastResponse, WeatherError>
 }
 
-// MARK: - View
-extension DailyWeatherRow: View {
-	var body: some View {
-		HStack {
-			VStack {
-				Text("\(viewModel.day)")
-				Text("\(viewModel.month)")
-			}
-			
-			VStack(alignment: .leading) {
-				Text("\(viewModel.title)")
-					.font(.body)
-				Text("\(viewModel.fullDescription)")
-					.font(.footnote)
-			}
-			.padding(.leading, 8)
-			
-			Spacer()
-			
-			Text("\(viewModel.temperature)°")
-				.font(.title)
-		}
-	}
-}
