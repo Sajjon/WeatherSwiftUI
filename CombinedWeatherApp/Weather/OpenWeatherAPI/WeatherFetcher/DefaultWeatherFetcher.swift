@@ -76,7 +76,7 @@ private extension DefaultWeatherFetcher {
 		static let scheme = "https"
 		static let host = "api.openweathermap.org"
 		static let path = "/data/2.5"
-		static let key = "<your key>"
+		static let key = "9e55b214e990ccccea43577330447e6f"
 	}
 	
 	func makeWeeklyForecastComponents(
